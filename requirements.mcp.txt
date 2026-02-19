@@ -1,0 +1,5 @@
+# Optional MCP-related dependencies pinned by version/commit.
+# Keep these locked for reproducible Docker builds.
+#
+# Example:
+# git+https://github.com/your-org/your-mcp-server.git@0123456789abcdef0123456789abcdef01234567

@@ -1,0 +1,59 @@
+{
+  "llm": {
+    "provider": "openai_agents",
+    "model": "gemini-2.5-flash",
+    "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+    "openai_api": "chat_completions",
+    "temperature": 0.2,
+    "max_tokens": 800
+  },
+  "agent": {
+    "name": "assistant",
+    "system_prompt": "You are a reliable assistant. Use tools when needed and return clear, actionable answers.",
+    "max_turns": 10
+  },
+  "memory": {
+    "type": "sqlite_session",
+    "db_path": ".agent/sessions.db",
+    "session_id": "default",
+    "history_limit": 50
+  },
+  "tools": {
+    "enabled": [
+      "echo",
+      "time_now",
+      "fs_list",
+      "fs_read"
+    ],
+    "fs_root": "."
+  },
+  "skills": {
+    "enabled": true,
+    "dir": "skills",
+    "max_active": 2,
+    "allow_name_match": true
+  },
+  "mcp": {
+    "enabled": true,
+    "connect_timeout_seconds": 10,
+    "cleanup_timeout_seconds": 10,
+    "drop_failed_servers": true,
+    "strict": false,
+    "connect_in_parallel": true,
+    "servers": [
+      {
+        "name": "amap-mcp-server",
+        "transport": "stdio",
+        "command": "cmd",
+        "args": [
+          "/c",
+          "${USERPROFILE}\\.local\\bin\\uvx.exe",
+          "amap-mcp-server"
+        ],
+        "env": {
+          "AMAP_MAPS_API_KEY": "${AMAP_MAPS_API_KEY}"
+        }
+      }
+    ]
+  }
+}

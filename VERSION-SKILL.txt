@@ -1,0 +1,4 @@
+﻿version=skill版
+created_at=2026-02-16 22:31:56
+branch=skill-ban
+summary=Skill-enabled framework snapshot

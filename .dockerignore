@@ -1,0 +1,16 @@
+.git
+.gitignore
+.agent/
+.env
+.env.*
+!.env.example
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.db
+*.sqlite
+js-agent/node_modules/

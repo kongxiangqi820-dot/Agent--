@@ -1,0 +1,3 @@
+interface:
+  display_name: "MiniMax TTS"
+  short_description: "Convert text to dubbing audio with selectable voice_id"

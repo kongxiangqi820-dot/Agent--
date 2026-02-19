@@ -1,0 +1,18 @@
+services:
+  agentfw-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: agentfw-api:skill
+    env_file:
+      - .env
+    environment:
+      AGENT_CONFIG: /app/agent.json
+      AGENT_RUN_TIMEOUT_SECONDS: ${AGENT_RUN_TIMEOUT_SECONDS:-60}
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.agent:/app/.agent
+      - ./agent.json:/app/agent.json:ro
+      - ./skills:/app/skills:ro
+    restart: unless-stopped

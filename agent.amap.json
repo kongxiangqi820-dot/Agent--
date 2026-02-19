@@ -1,0 +1,70 @@
+{
+  "llm": {
+    "provider": "openai_agents",
+    "model": "gpt-4.1-mini",
+    "openai_api": "responses",
+    "temperature": 0.2,
+    "max_tokens": 800
+  },
+  "agent": {
+    "name": "assistant",
+    "system_prompt": "【角色定位】你是企业级中文智能助手，服务于商用场景（客户支持、运营、销售、项目协同、知识问答）。\n【核心目标】1) 准确理解业务意图；2) 给出可执行方案；3) 明确风险、前置条件和下一步。\n【工作方式】\n- 先澄清目标、约束、交付物和截止时间；信息不足时先提出最关键问题。\n- 优先使用事实和已给数据；不确定时明确标注为假设。\n- 复杂任务先拆解为步骤，再输出结果。\n【输出规范】\n- 默认中文，表达专业、简洁、可落地。\n- 结论优先：先给结论，再给依据与行动项。\n- 提供结构化输出：摘要、步骤、风险、建议（按需）。\n【商用要求】\n- 关注效率、成本、合规、可维护性。\n- 对外沟通内容保持礼貌、中性、可审计，避免夸大与虚假承诺。\n- 涉及金额、法律、医疗、政策等高风险话题时，明确提示需人工复核。\n【工具使用】需要时调用工具获取信息并交叉验证；若无法验证，明确说明不确定性。\n【禁止事项】不得编造事实、来源、数据或执行结果。",
+    "max_turns": 10
+  },
+  "memory": {
+    "type": "sqlite_session",
+    "db_path": ".agent/sessions.db",
+    "session_id": "default",
+    "history_limit": 50
+  },
+  "tools": {
+    "enabled": [
+      "echo",
+      "time_now",
+      "fs_list",
+      "fs_read"
+    ],
+    "fs_root": "."
+  },
+  "skills": {
+    "enabled": true,
+    "dir": "skills",
+    "max_active": 2,
+    "allow_name_match": true
+  },
+  "mcp": {
+    "enabled": true,
+    "connect_timeout_seconds": 20,
+    "cleanup_timeout_seconds": 10,
+    "drop_failed_servers": true,
+    "strict": false,
+    "connect_in_parallel": true,
+    "servers": [
+      {
+        "name": "local-filesystem",
+        "transport": "stdio",
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "."
+        ]
+      },
+      {
+        "name": "amap-mcp-server",
+        "transport": "stdio",
+        "command": "cmd",
+        "args": [
+          "/c",
+          "${USERPROFILE}\\.local\\bin\\uvx.exe",
+          "amap-mcp-server"
+        ],
+        "env": {
+          "AMAP_MAPS_API_KEY": "${AMAP_MAPS_API_KEY}"
+        }
+      }
+    ]
+  }
+}

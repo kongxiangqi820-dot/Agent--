@@ -1,0 +1,9 @@
+﻿.agent/
+__pycache__/
+*.pyc
+.venv/
+.vscode/
+js-agent/node_modules/
+.env
+.env.*
+!.env.example
