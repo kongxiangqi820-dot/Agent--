@@ -33,7 +33,7 @@
     "allow_name_match": true
   },
   "mcp": {
-    "enabled": false,
+    "enabled": true,
     "connect_timeout_seconds": 20,
     "cleanup_timeout_seconds": 10,
     "drop_failed_servers": true,
@@ -41,40 +41,11 @@
     "connect_in_parallel": true,
     "servers": [
       {
-        "name": "local-filesystem",
-        "transport": "stdio",
-        "command": "cmd",
-        "args": [
-          "/c",
-          "npx",
-          "-y",
-          "@modelcontextprotocol/server-filesystem",
-          "."
-        ]
-      },
-      {
-        "name": "supabase",
-        "transport": "stdio",
-        "command": "cmd",
-        "args": [
-          "/c",
-          "npx",
-          "-y",
-          "mcp-remote@latest",
-          "https://mcp.supabase.com/mcp?read_only=true"
-        ]
-      },
-      {
-        "name": "amap-mcp-server",
-        "transport": "stdio",
-        "command": "cmd",
-        "args": [
-          "/c",
-          "${USERPROFILE}\\.local\\bin\\uvx.exe",
-          "amap-mcp-server"
-        ],
-        "env": {
-          "AMAP_MAPS_API_KEY": "${AMAP_MAPS_API_KEY}"
+        "name": "github-official",
+        "transport": "streamable_http",
+        "url": "https://api.githubcopilot.com/mcp/",
+        "headers": {
+          "Authorization": "Bearer ${GITHUB_PERSONAL_ACCESS_TOKEN}"
         }
       }
     ]
